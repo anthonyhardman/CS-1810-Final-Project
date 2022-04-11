@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Hello Triangle</h1>
+        </header>
+        
+        <div class="flex-canvas-color-picker">
+            <h1>The Setup</h1>
+            <h1>The Shaders</h1>
+            <div class="flex-code-comparison">
+                <div class = "code-container">
+                    <code>
+                        {{webGLVShader}}
+                    </code>
+                </div>
+                <div class = "code-container">
+                    <code>
+                        {{openGLVShader}}
+                    </code>
+                </div>
+            </div>
+    
+            <div class="flex-code-comparison">
+                <div class = "code-container">
+                    <code>
+                        {{webGLFShader}}
+                    </code>
+                </div>
+                <div class = "code-container">
+                    <code>
+                        {{openGLFShader}}
+                    </code>
+                </div>
+            </div>
+            <h1>The Result</h1>
+            <div class="flex-color-picker">
+                <div class="flex-color-label">
+                    <label for="top-vertex"><img src="./images/triangle-top.svg" alt=""></label>
+                    <input type="color" id="top-vertex" name="top-vertex" value="#ff0000">
+                </div>
+                <div class="flex-color-label">
+                    <label for="bottom-left-vertex"><img src="./images/triangle-bottom-left.svg" alt=""></label>
+                    <input type="color" id="bottom-left-vertex" name="bottom-left-vertex" value="#00ff00">
+                </div>
+                <div class="flex-color-label">
+                    <label for="bottom-right-vertex"><img src="./images/triangle-bottom-right.svg" alt=""></label>
+                    <input type="color" id="bottom-right-vertex" name="bottom-right-vertex" value="#0000ff">
+                </div>
+            </div>
+            <canvas id="glCanvas"></canvas>
+        </div>
+    </div>
+    <script src="./toji-gl-matrix-abb59a1/dist/gl-matrix.js"></script>
+    <script src="./shader.js"></script>
+    <script src="./testGL.js"></script>
+</body>
+</html>
