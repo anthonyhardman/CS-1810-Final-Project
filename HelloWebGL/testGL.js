@@ -8,6 +8,9 @@ let app = Vue.createApp({
             openGLVShader: null,
             webGLFShader: null,
             openGLFShader: null,
+            glfwSetup: null,
+            loadGLFunc: null,
+            gladSetup: null,
         }
     },
 
@@ -131,6 +134,10 @@ let app = Vue.createApp({
             let b = Number("0x"+color[5]+color[6]) / 255;
         
             return [r, g, b];
+        },
+
+        highLightCode(code) {
+            return hljs.highlightAuto(`${code}`).value;
         }
     }
 }).mount('#app');
@@ -139,3 +146,6 @@ fetch(`http://localhost:8000/shader?id=${"basicVertex.glsl"}`).then(res => res.j
 fetch(`http://localhost:8000/shader?id=${"basicFragment.glsl"}`).then(res => res.json()).then(data => {app.webGLFShader = data.shader;});
 fetch(`http://localhost:8000/shader?id=${"basicVertexComp.glsl"}`).then(res => res.json()).then(data => {app.openGLVShader = data.shader;});
 fetch(`http://localhost:8000/shader?id=${"basicFragmentComp.glsl"}`).then(res => res.json()).then(data => {app.openGLFShader = data.shader;});
+fetch(`http://localhost:8000/cpp?id=${"glfwsetup.cpp"}`).then(res => res.json()).then(data => {app.glfwSetup = data.cpp;});
+fetch(`http://localhost:8000/cpp?id=${"loadglfunc.cpp"}`).then(res => res.json()).then(data => {app.loadGLFunc = data.cpp;});
+fetch(`http://localhost:8000/cpp?id=${"gladsetup.cpp"}`).then(res => res.json()).then(data => {app.gladSetup = data.cpp;});

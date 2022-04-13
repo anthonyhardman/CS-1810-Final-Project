@@ -6,13 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Triangle</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./highlight.js/styles/tokyo-night-dark.min.css">
+    <script src="highlight.js/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <script src="https://unpkg.com/vue@3"></script>
 </head>
 <body>
     <div id="app">
         <header>
-            <h1>Hello Triangle</h1>
+            <h1>// Hello Triangle</h1>
         </header>
+        <main>
+            <p>
+                When learning a programming language the most traditional place to start is learning how to print Hello World! to the console
+                because printing to the console is one of the most fundamental things you will need to do as a programmer. In graphics programming
+                the equivalent to writing Hello World! to the console is drawing a Triangle to a graphics context. In graphics programming circles
+                this sort of program is appropriately named Hello Triangle and that is what we are going to learn to do with WebGL.
+            </p>
+            <section>
+                <h1>// Getting a WebGL Context</h1>
+                <p>In order to call WebGL functions we need to get a WebGL context from the canvas we are going to draw to. Luckily this is a very simple to do with JavaScript.</p>
+                <pre><code class="js">const canvas = document.getElementById("glCanvas");&#10const gl = canvas.getContext("webgl2");</code></pre>
+                <p>
+                    We simply need to get the canvas element we're drawing to and call call getContext on it, sepecifying the version of webgl we would like to use, webgl2 being the most
+                    recent version at the time of this writing. 
+                </p>
+            </section>
+            <section>
+                <h1>// Getting a OpenGL Context</h1>
+                <p>
+                    In comparison to getting a WebGL context getting a OpenGL context is fairly complicated. Mainly because creating a window is quite complicated, luckily for us libraries like GLFW
+                    exist. GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES, and Vulkan development on desktop. It provides a simple API for creating windows, contexts and surfaces,
+                    receiving input and events. In short GLFW makes creating a window and getting an OpenGL context extremely simple as opposed to the hundreds of lines of operating system specific code
+                    you would have to write to create a window with an OpenGL context. If you would like to learn more about GLFW click <a href="https://www.glfw.org/">here</a>.
+                </p>
+                <pre><code class="cpp" v-html="highLightCode(glfwSetup)"></code></pre>
+                <p>
+                    Hundreds of lines of code compacted into a few library calls. It's <em>beautiful</em> really and it allows us to focus on just the graphics programming. 
+                </p>
+                <p>
+                    We aren't quite done yet in order to use OpenGL we need to load the function pointers for every OpenGL function that we want to use. Which isn't so much complicated as it is tedious.
+                </p>
+                <pre><code class="cpp" v-html="highLightCode(loadGLFunc)"></code></pre>
+                <p>
+                    This function would need to be called for every single OpenGL function that you want to use. Very tedious but also entirely unecessary now that there are libraries like GLAD. GLAD is an Open 
+                    Source library that handles loading all the OpenGL functions for us. With GLAD loading OpenGL functions becomes as simple as this.
+                </p>
+                <pre><code class="cpp" v-html="highLightCode(gladSetup)"></code></pre>
+                <p>
+                    With those 5 lines of code we can call any OpenGL function we could possibly need.
+                </p>
+                <p>
+                    You might be wondering why loading OpenGL functions is such a complicated process. The reason is the OpenGL specification is managed by the <a href="https://www.khronos.org/">Khronos Group</a>, emphasis
+                    on specifcation not implementation. Implementation of the specification is left to individual GPU manufacturers like Nvida, AMD, and Intel which means OpenGL functions are not know at compile time and must be 
+                    loaded at runtime.
+                </p>
+            </section>
+        </main>
+
+
         <div class="flex-canvas-color-picker">
             <h1>The Setup</h1>
             <h1>The Shaders</h1>
@@ -35,9 +87,7 @@
             <div class="flex-code-comparison">
                 <div class = "code-container">
                     <p>//WebGL</p>
-                    <code>
-                        {{webGLFShader}}
-                    </code>
+                    <pre><code>{{webGLFShader}}</code></pre>
                 </div>
                 <div class = "code-container">
                     <p>//OpenGL</p>

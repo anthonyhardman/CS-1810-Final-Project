@@ -34,6 +34,29 @@ app.get('/shader', (req, res) => {
     }
 });
 
+app.get('/cpp', (req,res) => {
+    console.log(req.url);
+    console.log(req.query.id);
+
+    try
+    {
+        let cppCode = fs.readFileSync(`./cpp/${req.query.id}`, 'utf8').toString();
+
+        res.send({
+            status: true,
+            error: "none",
+            cpp: cppCode
+        })
+    }
+    catch
+    {
+        res.send({
+            status: false,
+            error: "cpp file does not exist"
+        })
+    }
+})
+
 app.listen(8000, () => {
     console.log("Up and running babe!")
 })
