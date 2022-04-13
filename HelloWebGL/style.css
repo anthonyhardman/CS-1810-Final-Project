@@ -66,6 +66,11 @@ code {
     margin-bottom: 1em;
 }
 
+.code-container p {
+    margin: 0;
+    color: green;
+}
+
 .flex-code-comparison {
     display: flex;
     flex-direction: column;

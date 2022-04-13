@@ -64,12 +64,6 @@ let app = Vue.createApp({
             gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 6 * 4, 12)
             gl.enableVertexAttribArray(1);
 
-            // Global webGL state
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            gl.clearDepth(1.0);
-            gl.enable(gl.DEPTH_TEST);
-            gl.depthFunc(gl.LEQUAL);
-
             // If the color pickers change update the vbo data
             topVertexColor.onchange = () => {
                 let newColor = this.hexColorToGLRGB(topVertexColor.value);
@@ -99,7 +93,6 @@ let app = Vue.createApp({
                 
                 let projection = mat4.create();
                 mat4.perspective(projection, 45 * Math.PI / 180, canvas.width / canvas.height, 0.01, 100.0);
-
                 let model = mat4.create();
                 mat4.translate(model, model, [0.0, 0.0, -4]);
                 mat4.scale(model, model, [2.0, 2.0, 2.0]);

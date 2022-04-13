@@ -32,8 +32,6 @@ app.get('/shader', (req, res) => {
             error: "shader does not exist"
         })
     }
-
-    
 });
 
 app.listen(8000, () => {

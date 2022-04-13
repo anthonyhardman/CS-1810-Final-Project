@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hello Triangle</title>
     <link rel="stylesheet" href="./style.css">
     <script src="https://unpkg.com/vue@3"></script>
 </head>
@@ -13,30 +13,34 @@
         <header>
             <h1>Hello Triangle</h1>
         </header>
-        
         <div class="flex-canvas-color-picker">
             <h1>The Setup</h1>
             <h1>The Shaders</h1>
+            <h2>Vertex Shaders</h2>
             <div class="flex-code-comparison">
                 <div class = "code-container">
+                    <p>//WebGL</p>
                     <code>
                         {{webGLVShader}}
                     </code>
                 </div>
                 <div class = "code-container">
+                    <p>//OpenGL</p>
                     <code>
                         {{openGLVShader}}
                     </code>
                 </div>
             </div>
-    
+            <h2>Fragment Shaders</h2>
             <div class="flex-code-comparison">
                 <div class = "code-container">
+                    <p>//WebGL</p>
                     <code>
                         {{webGLFShader}}
                     </code>
                 </div>
                 <div class = "code-container">
+                    <p>//OpenGL</p>
                     <code>
                         {{openGLFShader}}
                     </code>
