@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,111 +12,261 @@
     <script>hljs.highlightAll();</script>
     <script src="https://unpkg.com/vue@3"></script>
 </head>
+
 <body>
     <div id="app">
         <header>
-            <h1>// Hello Triangle</h1>
+            <h1>/*Hello Triangle*/</h1>
         </header>
         <main>
-            <p>
-                When learning a programming language the most traditional place to start is learning how to print Hello World! to the console
-                because printing to the console is one of the most fundamental things you will need to do as a programmer. In graphics programming
-                the equivalent to writing Hello World! to the console is drawing a Triangle to a graphics context. In graphics programming circles
-                this sort of program is appropriately named Hello Triangle and that is what we are going to learn to do with WebGL.
-            </p>
-            <section>
-                <h1>// Getting a WebGL Context</h1>
-                <p>In order to call WebGL functions we need to get a WebGL context from the canvas we are going to draw to. Luckily this is a very simple to do with JavaScript.</p>
-                <pre><code class="js">const canvas = document.getElementById("glCanvas");&#10const gl = canvas.getContext("webgl2");</code></pre>
-                <p>
-                    We simply need to get the canvas element we're drawing to and call call getContext on it, sepecifying the version of webgl we would like to use, webgl2 being the most
-                    recent version at the time of this writing. 
-                </p>
-            </section>
-            <section>
-                <h1>// Getting a OpenGL Context</h1>
-                <p>
-                    In comparison to getting a WebGL context getting a OpenGL context is fairly complicated. Mainly because creating a window is quite complicated, luckily for us libraries like GLFW
-                    exist. GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES, and Vulkan development on desktop. It provides a simple API for creating windows, contexts and surfaces,
-                    receiving input and events. In short GLFW makes creating a window and getting an OpenGL context extremely simple as opposed to the hundreds of lines of operating system specific code
-                    you would have to write to create a window with an OpenGL context. If you would like to learn more about GLFW click <a href="https://www.glfw.org/">here</a>.
-                </p>
-                <pre><code class="cpp" v-html="highLightCode(glfwSetup)"></code></pre>
-                <p>
-                    Hundreds of lines of code compacted into a few library calls. It's <em>beautiful</em> really and it allows us to focus on just the graphics programming. 
-                </p>
-                <p>
-                    We aren't quite done yet in order to use OpenGL we need to load the function pointers for every OpenGL function that we want to use. Which isn't so much complicated as it is tedious.
-                </p>
-                <pre><code class="cpp" v-html="highLightCode(loadGLFunc)"></code></pre>
-                <p>
-                    This function would need to be called for every single OpenGL function that you want to use. Very tedious but also entirely unecessary now that there are libraries like GLAD. GLAD is an Open 
-                    Source library that handles loading all the OpenGL functions for us. With GLAD loading OpenGL functions becomes as simple as this.
-                </p>
-                <pre><code class="cpp" v-html="highLightCode(gladSetup)"></code></pre>
-                <p>
-                    With those 5 lines of code we can call any OpenGL function we could possibly need.
-                </p>
-                <p>
-                    You might be wondering why loading OpenGL functions is such a complicated process. The reason is the OpenGL specification is managed by the <a href="https://www.khronos.org/">Khronos Group</a>, emphasis
-                    on specifcation not implementation. Implementation of the specification is left to individual GPU manufacturers like Nvida, AMD, and Intel which means OpenGL functions are not know at compile time and must be 
-                    loaded at runtime.
-                </p>
-            </section>
+            <div class="main-flex-container">
+                <div class="tutorial-flex-container">
+                    <section>
+                        <p>
+                            When learning a programming language the most traditional place to start is learning how to
+                            print Hello World! to the console
+                            because, printing to the console is one of the most fundamental things you will need to do
+                            as a programmer. In graphics programming
+                            there is a similar tradition when learning a new API and that is drawing a triangle to a
+                            graphics context. This sort of program is
+                            quite appropriately name Hello Triangle and that is what we are going learn how to do on
+                            this page, both in WebGL and OpenGL.
+                        </p>
+                        <p>
+                            WebGL and OpenGL are graphics APIs, the difference between the two being that WebGL is used
+                            for building web applications while
+                            OpenGL is used to build desktop applications. WebGL is actually based on OpenGL ES a lighter
+                            weight version of OpenGL used for
+                            creating applications on mobile devices such as phones as well as embedded systems. The
+                            WebGL and OpenGL <em>specification</em> are managed
+                            by the Khronos Group. Keep this in mind because it will be important later. You can read
+                            more about the Khronos Group, WebGL, and
+                            OpenGL <a href="https://www.khronos.org/">here</a>.
+                        </p>
+                    </section>
+                    <section>
+                        <h1>// Getting a Graphics Context</h1>
+                        <p>
+                            The first step we must take to draw a triangle using WebGL or OpenGL is to get a graphics
+                            context. A graphics context allows us call
+                            function that enable use to draw to a canvas element in the case of WebGL or a desktop
+                            window in the case OpenGL.
+                        </p>
+                        <h2>// WebGL</h2>
+                        <p>
+                            Getting a WebGL context is really simple. First we get the canvas element that we are going
+                            to draw to, then we call <code>getContext</code> on
+                            the canvas specifying the version of WebGL we would like to use. It really cannot be more
+                            simple than that.
+                        </p>
+                        <pre><code class="js">const canvas = document.getElementById("glCanvas");&#10const gl = canvas.getContext("webgl2");</code></pre>
+                        <p>
+                            Alternatively you could pass "webgl" to getContext and use WebGL 1.0 and it may even be
+                            necessary if you want your web application
+                            to support older browsers. You can see which browsers support WebGL 2.0 <a
+                                href="https://caniuse.com/webgl2">here</a>.
+                        </p>
+                        <h2>// OpenGL</h2>
+                        <p>
+                            Getting a graphics context for OpenGL is admittedly a much more complicated process than
+                            WebGL. Much of this has to do with the fact
+                            that creating a window is operating system specific and requires 100+ lines of code to be
+                            written. Luckily for us there are libraries
+                            like GLFW that can handle windowing for us. GLFW is an Open Source, multi-platform library
+                            for OpenGL, OpenGL ES, and Vulkan development
+                            on desktop. It provides a simple API for creating windows, contexts and surfaces, receiving
+                            input and events. Ok it can do a little bit
+                            more than windowing. I encourage you to read more about GLFW on their <a
+                                href="https://www.glfw.org/">website</a>. We're going to allow
+                            GLFW to create our window and get our OpenGL context for us.
+                        </p>
+                        <pre><code class="cpp" v-html="highLightCode(glfwSetup)"></code></pre>
+                        <p>
+                            Compared to the hundreds of lines of code we would have had to write without GLFW this is
+                            simply <em>beautiful</em>. Nonetheless it deserves
+                            some dissecting. First things first we have to initialize GLFW by calling
+                            <code>glfwInit</code>, after doing so we can configure the window
+                            we're going to create by calling <code>glfwWindowHint</code>. The first parameter of is the
+                            setting we are configuring, and the second is the
+                            value.
+                        </p>
+                        <p>
+                            Since we will be using OpenGL 4.6 in this example we must configure
+                            <code>GLFW_CONTEXT_VERSION_MAJOR</code> with the value of 4 and
+                            <code>GLFW_CONTEXT_VERSION_MAJOR</code> with a value of 6. As of this writing OpenGL 4.6 is
+                            the latest version and is supported by most modern
+                            graphics cards, on the off chance that your GPU does not support OpenGL 4.6 feel free to
+                            change these settings to OpenGL 3.3 or above. OpenGL
+                            3.3 is the most widely supported version using the modern pipeline that is necessary for
+                            this example.
+                        </p>
+                        <p>
+                            Next we need to configure <code>GLFW_OPENGL_PROFILE</code>, we are going to use the core
+                            profile of OpenGL 4.6 so we configure this setting to
+                            <code>GLFW_OPENGL_CORE_PROFILE</code>. If you are running MAC OS you will also need to
+                            configure <code>GLFW_OPENGL_FORWARD_COMPAT</code> to
+                            <code>GL_TRUE</code>. Setting this value to <code>GL_TRUE</code> ensures that deprecated
+                            functionality of the requested version of OpenGL is
+                            removed, as required by MAC OS.
+                        </p>
+                        <p>
+                            Now finally we can create a window with an OpenGL context. <code>glfwCreateWindow</code>
+                            takes in five parameters the integer width of the window in pixels,
+                            the integer height of the window in pixels, the window title, a pointer to a GLFWmonitor to
+                            use in fullscreen mode <i>*for most applications this will be NULL</i>,
+                            a pointer to a GLFWwindow whose context to share resources with <i>*for most applications
+                                this will be NULL</i>. Next we need only check the status of our window,
+                            calling <code>glfwTerminate</code> and terminating the program if it was not successfully
+                            made, and finally we can enable our context by calling <code>glfwMakeContextCurrent</code>.
+                        </p>
+                        <p>
+                            Technically at this point we have a OpenGL context but we won't be able to call any OpenGL
+                            functions. <em>What?</em> All that and we still can't call any OpenGL functions?
+                            Unfortunately this is the case. Remember how I told you in the introduction of this page
+                            that OpenGL <em>specification</em> is managed by the Khronos Group? This is important
+                            because the Khronos Group only manages the <em>specification</em> of OpenGL and WebGL. The
+                            implementation of the specification is left to individual GPU manufacturers like
+                            Nvidia, AMD, and Intel, which also means that OpenGL will not necessarily function in the
+                            same way across different machines. What this really means is that OpenGL functions
+                            are not known at compile time and must be loaded at runtime from your GPU's drivers. On
+                            Windows this process looks a bit like this. If you would like to read more about manually
+                            loading OpenGL functions click <a
+                                href="https://www.khronos.org/opengl/wiki/Load_OpenGL_Functions">here</a>.
+                        </p>
+                        <pre><code class="cpp" v-html="highLightCode(loadGLFunc)"></code></pre>
+                        <p>
+                            I won't get into the nitty gritty of this function just know that this is bad. Not bad
+                            because it's bad code but bad because <code>loadGLFuncAddress</code> would have to be called
+                            for every single OpenGL function that we want to use. Just to put this into perspective if
+                            you wanted to use the full capability of the OpenGL API you would have to load over 250
+                            functions
+                            manually. Luckily there is a better way. Glad is a library that will handle loading these
+                            functions for us, and it's really simple too! You can learn more about Glad on its
+                            <a href="https://github.com/Dav1dde/glad">GitHub</a> page.
+                        </p>
+                        <pre><code class="cpp" v-html="highLightCode(gladSetup)"></code></pre>
+                        <p>
+                            That's it, 5 lines of code and all our OpenGL functions are loaded and we're finally ready
+                            to start using OpenGL.
+                        </p>
+                    </section>
+                    <section>
+                        <h1>// Setting Up The Global State</h1>
+                        <p>
+                            Now that we have our context it is time to set up it's global state. For our example this is
+                            quite an easy process. We simply need to set the background color of our canvas and window
+                            and optionally enable depth testing. Depth testing is optional because we are only drawing a
+                            single triangle. If we were drawing multiple objects at different depths then depth testing
+                            would be necessary. If we do not enable depth testing in this case the last object drawn
+                            would overwrite the color buffer even if it's depth value was greater than the other
+                            objects.
+                        </p>
+                        <p>
+                            Before you read on colors in WebGL and OpenGL deserve some explanation because they are not
+                            like your traditional RGBA colors where each color component is mapped between 0 and 255. In
+                            WebGL and OpenGL each color component is mapped between 0.0 and 1.0, weird I know. Luckily
+                            converting from traditional RGBA to the format understood by OpenGL and WebGL is as simple
+                            as
+                            dividing each color component by 255.
+                        </p>
+                        <h2>// WebGL</h2>
+                        <pre><code class="js" v-html="highLightCode(globalWebGLState)"></code></pre>
+                        <p>
+                            Voila, we're done setting up the global state. As you might have suspected
+                            <code>clearColor</code> sets the background color of the canvas and it simply takes in four
+                            values corresponding to an RGBA color. More specifically
+                            <code>clearColor</code> determines the color that the color buffer will be cleared with
+                            between frames, but we'll get into that more later.
+                        </p>
+                        <p>
+                            <code>enable</code> is a more general function, in this case we are using it to enable depth
+                            test by passing it <code>gl.DEPTH_TESTING</code>, but it does have other applications in
+                            more advanced examples than this.
+                        </p>
+                        <h2>// OpenGL</h2>
+                        <pre><code class="cpp" v-html="highLightCode(globalOpenGLState)"></code></pre>
+                        <p>
+                            If you think you are seeing double it's because you pretty much are. The only difference
+                            between this code segment and the WebGL segment are the differences between C and
+                            JavaScript.
+                        </p>
+                    </section>
+                    <section>
+                        <h1>// Shader Programs</h1>
+                        <p>
+                            In order to draw our triangle we need to tell the GPU how to interpret the data we're going
+                            to send to it. This is done by means of shader programs. Shader programs are not like your
+                            typical programs in that they run on the
+                            GPU as opposed to the CPU. A shader program consist of multiple shaders the different types
+                            being vertex, tesselation, geometry, fragment, and compute shaders. We will only be
+                            concerning ourselves with vertex and fragment shaders.
+                            Vertex and fragment shaders are the minimum needed for a shader program and the only types
+                            of shaders that WebGL supports. If you would like to read more about the other types of
+                            shaders click
+                            <a href="https://www.khronos.org/opengl/wiki/Shader">here</a>.
+                        </p>
+                        <p>
+                            In our example the vertex shader will be responsible for defining our vertex positions and
+                            passing our vertex colors on to the fragment shader. The fragment shader will be responsible
+                            for coloring each pixel that our triangle occupies.
+                            In truth the vertex and fragment shaders are quite a bit more versatile and complicated, but
+                            this is a good abstraction for now.
+                        </p>
+                        <p>
+                            WebGL and OpenGL shaders are written in a language called GLSL. The syntax of GLSL is very
+                            much like C, so if you have experience programming in C you will have little issue with the
+                            syntax of GLSL.
+                        </p>
+                        <h2>// WebGL</h2>
+                        <p>
+                            The first thing we need to do before we can create a shader program is write our shader
+                            programs. Let's start with the vertex shader.
+                        </p>
+                        <pre><code class="js" v-html="highLightCode(webGLVShader)"></code></pre>
+                        <p>
+                            This is a fairly simple snippet of code. Let's dig into it. The first step of writing an
+                            shader is to declare which version of OpenGL we will be using. In our case we use the
+                            directive <code>#version 300 es</code> specifying that we are using
+                            OpenGL ES 3.00. You might be wondering why we are specifying that we are using WebGL 2.0.
+                            Since WebGL is based on OpenGL ES are shaders must declare that we are using OpenGL ES.
+                        </p>
+                        <pre><code class="js" v-html="highLightCode(webGLFShader)"></code></pre>
+                        <h2>// OpenGL</h2>
+                        <pre><code class="js" v-html="highLightCode(openGLVShader)"></code></pre>
+                        <pre><code class="js" v-html="highLightCode(openGLFShader)"></code></pre>
+                    </section>
+                    <section>
+                        <h1>// Using VBOs and VAOs</h1>
+                        <h2>// WebGL</h2>
+                        <pre><code class="js" v-html="highLightCode(vaoSetupJS)"></code></pre>
+                        <h2>// OpenGL</h2>
+                    </section>
+                </div>
+                <div class="canvas-and-color-pickers-flex-container">
+                    <div class="flex-color-picker">
+                        <div class="flex-color-label">
+                            <label for="top-vertex"><img src="./images/triangle-top.svg" alt=""></label>
+                            <input type="color" id="top-vertex" name="top-vertex" value="#ff0000">
+                        </div>
+                        <div class="flex-color-label">
+                            <label for="bottom-left-vertex"><img src="./images/triangle-bottom-left.svg" alt=""></label>
+                            <input type="color" id="bottom-left-vertex" name="bottom-left-vertex" value="#00ff00">
+                        </div>
+                        <div class="flex-color-label">
+                            <label for="bottom-right-vertex"><img src="./images/triangle-bottom-right.svg"
+                                    alt=""></label>
+                            <input type="color" id="bottom-right-vertex" name="bottom-right-vertex" value="#0000ff">
+                        </div>
+                    </div>
+                    <canvas id="glCanvas"></canvas>
+                </div>
+            </div>
+
         </main>
-
-
-        <div class="flex-canvas-color-picker">
-            <h1>The Setup</h1>
-            <h1>The Shaders</h1>
-            <h2>Vertex Shaders</h2>
-            <div class="flex-code-comparison">
-                <div class = "code-container">
-                    <p>//WebGL</p>
-                    <code>
-                        {{webGLVShader}}
-                    </code>
-                </div>
-                <div class = "code-container">
-                    <p>//OpenGL</p>
-                    <code>
-                        {{openGLVShader}}
-                    </code>
-                </div>
-            </div>
-            <h2>Fragment Shaders</h2>
-            <div class="flex-code-comparison">
-                <div class = "code-container">
-                    <p>//WebGL</p>
-                    <pre><code>{{webGLFShader}}</code></pre>
-                </div>
-                <div class = "code-container">
-                    <p>//OpenGL</p>
-                    <code>
-                        {{openGLFShader}}
-                    </code>
-                </div>
-            </div>
-            <h1>The Result</h1>
-            <div class="flex-color-picker">
-                <div class="flex-color-label">
-                    <label for="top-vertex"><img src="./images/triangle-top.svg" alt=""></label>
-                    <input type="color" id="top-vertex" name="top-vertex" value="#ff0000">
-                </div>
-                <div class="flex-color-label">
-                    <label for="bottom-left-vertex"><img src="./images/triangle-bottom-left.svg" alt=""></label>
-                    <input type="color" id="bottom-left-vertex" name="bottom-left-vertex" value="#00ff00">
-                </div>
-                <div class="flex-color-label">
-                    <label for="bottom-right-vertex"><img src="./images/triangle-bottom-right.svg" alt=""></label>
-                    <input type="color" id="bottom-right-vertex" name="bottom-right-vertex" value="#0000ff">
-                </div>
-            </div>
-            <canvas id="glCanvas"></canvas>
-        </div>
     </div>
     <script src="./toji-gl-matrix-abb59a1/dist/gl-matrix.js"></script>
     <script src="./shader.js"></script>
-    <script src="./testGL.js"></script>
+    <script src="./helloTriangle.js"></script>
 </body>
+
 </html>

@@ -57,6 +57,29 @@ app.get('/cpp', (req,res) => {
     }
 })
 
+app.get('/js', (req,res) => {
+    console.log(req.url);
+    console.log(req.query.id);
+
+    try
+    {
+        let jsCode = fs.readFileSync(`./js/${req.query.id}`, 'utf8').toString();
+
+        res.send({
+            status: true,
+            error: "none",
+            js: jsCode
+        })
+    }
+    catch
+    {
+        res.send({
+            status: false,
+            error: "JavaScript file does not exist"
+        })
+    }
+})
+
 app.listen(8000, () => {
     console.log("Up and running babe!")
 })

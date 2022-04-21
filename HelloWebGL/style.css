@@ -1,44 +1,105 @@
 body {
     background-color: #101010;
-    background-position: center;
     color: #569cd6;
     font-family: Consolas, manaco, monospace;
     margin: 0;
-    padding: 0;
 }
 
-main {
-    margin: 5%;
-}
 
 header {
-    width: 100%;
+    background-color: #1c1c1c;
+    margin-bottom: 1em;
+}
+
+header h1{
     margin: 0;
     text-align: center;
-    background-color: #1c1c1c;
-    box-shadow: black 0px 1px 4px;
 }
 
-header h1 {
-    margin: 0px;
-}
-
-h1 {
+h1, h2, h3, h4, h5, h6 {
     color: green;
+    margin: 0.5em 0 0.5em 0;
+}
+
+p {
+    margin: 0.5em 0 0.5em 0;
+}
+
+section {
+    border-bottom: 10px double black;
+    padding: 0 1em 0 1em;
 }
 
 code {
-    border: solid black 1px;
-    border-radius: 6px;
-    box-shadow: black 4px 2px 5px;
+    border-radius: 3px;
+    background-color: #1a1b26;
+    box-shadow: 1px 1px 5px black;
+    color: orange;
 }
 
 pre {
-    display: inline-block;
-    margin: 1em 0px;
+    box-shadow: 1px 1px 5px black;
 }
 
-.code-container {
-    width: fit-content;
-    height: fit-content;
+.main-flex-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1em;
+    background-color: #101010;
+}
+
+.tutorial-flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5% 0 5%;
+    width: 95%;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.canvas-and-color-pickers-flex-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+.flex-color-picker {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-bar-test {
+    display: flex;
+}
+
+aside {
+    width: 10%;
+    background-color: blue;
+}
+.bar {
+    width: 10%;
+    background-color: blue;
+}
+
+@media (min-width: 800px) {
+    pre {
+        width: fit-content;
+        align-self: center;
+    }
+}
+
+@media (min-width: 1200px) {
+    .tutorial-flex-container {
+        width: 1200px;
+    }
 }
