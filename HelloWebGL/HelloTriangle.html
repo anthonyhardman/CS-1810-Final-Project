@@ -224,11 +224,12 @@
                         </p>
                         <pre><code class="js" v-html="highLightCode(webGLVShader)"></code></pre>
                         <p>
-                            This is a fairly simple snippet of code. Let's dig into it. The first step of writing an
+                            This is a fairly simple snippet of code. Let's dig into it. The first step of writing a
                             shader is to declare which version of OpenGL we will be using. In our case we use the
                             directive <code>#version 300 es</code> specifying that we are using
-                            OpenGL ES 3.00. You might be wondering why we are specifying that we are using WebGL 2.0.
-                            Since WebGL is based on OpenGL ES are shaders must declare that we are using OpenGL ES.
+                            OpenGL ES 3.00. You might be wondering why we aren't specifying that we are using WebGL 2.0.
+                            Since WebGL is based on OpenGL ES our shaders must declare that we are using OpenGL ES.
+                            At the time of this writing WebGL 2.0 supports OpenGL ES 3.0 shaders and below.
                         </p>
                         <pre><code class="js" v-html="highLightCode(webGLFShader)"></code></pre>
                         <h2>// OpenGL</h2>
