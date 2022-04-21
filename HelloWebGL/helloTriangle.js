@@ -118,15 +118,15 @@ let app = Vue.createApp({
 
         resizeCanvas(canvas)
         {
-            if (window.innerWidth < 800)
+            if (window.innerWidth < 600)
             {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerWidth;   
             }
             else
             {
-                canvas.width = 800;
-                canvas.height= 800;
+                canvas.width = 600;
+                canvas.height= 600;
             }
         },
 
