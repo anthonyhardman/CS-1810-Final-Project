@@ -1,6 +1,5 @@
 const {mat2, mat3, mat4, vec2, vec3, vec4} = glMatrix;
 
-
 let app = Vue.createApp({
     data() {
         return {
@@ -15,8 +14,13 @@ let app = Vue.createApp({
             globalOpenGLState: null,
             triangleVertices: null,
             vaoSetupJS: null,
+            vaoSetupCPP:null,
             webGLCompileShader: null,
             openGLCompileShader: null,
+            fullWebGLProgram: null,
+            fullOpenGLProgram: null,
+            mainDrawLoopJS: null,
+            mainDrawLoopCPP: null,
         }
     },
 
@@ -33,7 +37,7 @@ let app = Vue.createApp({
             const bottomRightVertexColor = document.querySelector("#bottom-right-vertex");
             
             this.resizeCanvas(canvas);
-            gl.viewport(0,0, canvas.width, canvas.height);
+            gl.viewport(0, 0, canvas.width, canvas.height);
             window.onresize = () => {
                 this.resizeCanvas(canvas);
                 gl.viewport(0, 0, canvas.width, canvas.height);
@@ -158,3 +162,8 @@ fetch(`http://localhost:8000/js?id=${"triangleVertices.js"}`).then(res => res.js
 fetch(`http://localhost:8000/js?id=${"vaoSetup.js"}`).then(res => res.json()).then(data => {app.vaoSetupJS = data.js;});
 fetch(`http://localhost:8000/js?id=${"shaderCompile.js"}`).then(res => res.json()).then(data => {app.webGLCompileShader = data.js;});
 fetch(`http://localhost:8000/cpp?id=${"shaderCompile.cpp"}`).then(res => res.json()).then(data => {app.openGLCompileShader = data.cpp;});
+fetch(`http://localhost:8000/js?id=${"fullHelloTriangleProgram.js"}`).then(res => res.json()).then(data => {app.fullWebGLProgram = data.js;});
+fetch(`http://localhost:8000/cpp?id=${"fullHelloTriangleProgram.cpp"}`).then(res => res.json()).then(data => {app.fullOpenGLProgram = data.cpp;});
+fetch(`http://localhost:8000/cpp?id=${"vaoSetup.cpp"}`).then(res => res.json()).then(data => {app.vaoSetupCPP = data.cpp;});
+fetch(`http://localhost:8000/cpp?id=${"mainDrawLoop.cpp"}`).then(res => res.json()).then(data => {app.mainDrawLoopCPP = data.cpp;});
+fetch(`http://localhost:8000/js?id=${"mainDrawLoop.js"}`).then(res => res.json()).then(data => {app.mainDrawLoopJS = data.js;});

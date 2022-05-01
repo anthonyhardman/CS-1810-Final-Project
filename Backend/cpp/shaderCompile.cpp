@@ -1,26 +1,26 @@
 const char* vertexShaderSource =
-"#version 460 core\n" 
-"layout(location = 0) in vec3 aPos;\n" 
-"layout(location = 1) in vec3 aColor;\n" 
-"void main()\n" 
-"{\n" 
-"   color = aColor;\n"
-"   gl_Position = vec4(aPos, 1.0);\n"  
-"}\n";
+    "#version 460 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "layout (location = 1) in vec3 aColor;\n"
+    "out vec3 color;"
+    "void main()\n"
+    "{\n"
+    "   color = aColor;\n"
+    "   gl_Position = vec4(aPos, 1.0);\n"
+    "}\0";
 
 const char* fragmentShaderSource =
-"#version 300 es\n"
-"precision mediump float;\n"
-"in vec3 color;\n"
-"out vec4 fragColor;\n"
-"void main()\n" 
-"{\n" 
-"    fragColor = vec4(color, 1.0);\n"
-"}\0"
+    "#version 460 core\n"
+    "in vec3 color;\n"
+    "out vec4 fragColor;\n"
+    "void main()\n"
+    "{\n"
+    "    fragColor = vec4(color, 1.0);\n"
+    "}\0";
 
-uin32_t shaderProgram = glCreateProgram();
-uin32_t vertexShader = glCreateShader();
-uin32_t fragmentShader = glCreateShader();
+uint32_t shaderProgram = glCreateProgram();
+uint32_t vertexShader = glCreateShader(GL_VERTEX_SHADER);
+uint32_t fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
 // compile the vertex shader
 glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
