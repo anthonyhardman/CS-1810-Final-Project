@@ -14,7 +14,7 @@ let vertexShaderSrc =
 "{\n" +
 "    color = aColor;\n" +
 "    gl_Position = vec4(aPos, 1.0);\n"+
-"}\n"
+"}\n";
 
 let fragmentShaderSrc = 
 "#version 300 es\n" +
