@@ -187,7 +187,7 @@
                         <pre><code class="cpp" v-html="highLightCode(globalOpenGLState)"></code></pre>
                         <p>
                             If you think you are seeing double it's because you pretty much are. The only difference
-                            between this code segment and the WebGL segment are the differences between C and
+                            between this code segment and the WebGL segment are the differences between C/C++ and
                             JavaScript.
                         </p>
                     </section>
@@ -218,6 +218,7 @@
                             syntax of GLSL.
                         </p>
                         <h2>// WebGL</h2>
+                        <h3>//Vertex Shader</h3>
                         <p>
                             The first thing we need to do before we can create a shader program is write our shaders.
                             Let's start with the vertex shader.
@@ -231,13 +232,122 @@
                             Since WebGL is based on OpenGL ES our shaders must declare that we are using OpenGL ES.
                             At the time of this writing WebGL 2.0 supports OpenGL ES 3.0 shaders and below.
                         </p>
+                        <p>
+                            Next we specify what information we are going to provide our vertex shader. In our case we
+                            will
+                            provide
+                            the shader with a vertex position and color. We do this with <code>layout</code> specifying
+                            the <code>location</code> and the type of data we are taking <code>in</code>. In both cases
+                            we are
+                            taking <code>in</code> a <code>vec3</code>. As the name suggest the GLSL <code>vec3</code>
+                            type is a three component floating point vector type,
+                            and it is perfect for describing XYZ positions and RGB colors.
+                        </p>
+                        <p>
+                            Next we specify what information we are going pass <code>out</code> of our vertex shader to
+                            other
+                            shaders in the graphics pipeline. In our case we will be passing a <code>color</code> to the
+                            fragment
+                            shader as a <code>vec3</code>.
+                        </p>
+                        <p>
+                            Like any other program shaders have a <code>main</code> function. Ours is quite simple, we
+                            specify the value
+                            of <code>color</code> as <code>aColor</code>, and <code>gl_Position</code> as a
+                            <code>vec4</code> transformation
+                            of <code>aPos</code>. <code>gl_Position</code> specifies the final vertex position we would
+                            like. You might be
+                            wondering why <code>gl_Position</code> is assigned to a <code>vec4</code>. The reason <cod>
+                                gl_Position</code> is
+                                assigned to a <code>vec4</code> is because GLSL coordinates are homogeneous coordinates
+                                or perspective coordinates, the explanation of what perspective coordinates are is out
+                                of the scope of this example, but just know that a great deal of linear algebra is
+                                necessary
+                                to create a 3D renderer and homogeneous coordinates are related to linear algebra. If
+                                you
+                                simply must know what homogeneous coordinates are feel free to look at this <a
+                                    href="https://en.wikipedia.org/wiki/Homogeneous_coordinates">wikipedia</a> page.
+                        </p>
+                        <h3>// Fragment Shader</h3>
                         <pre><code class="js" v-html="highLightCode(webGLFShader)"></code></pre>
+                        <p>
+                            The fragment shader starts the same way that the vertex shader starts, we declare which
+                            version
+                            of OpenGL we are using. The next statement <code>precision mediump float</code> specifies
+                            the precision
+                            of the floating point numbers used in this shader. In OpenGL ES fragment shaders this is
+                            required for
+                            performance reasons. We will be using <code>mediump</code> as our precision. Other options
+                            include
+                            <code>lowp</code> and <code>highp</code>. <code>highp</code> incurs a performance penalty
+                            and is not
+                            supported by all hardware.
+                        </p>
+                        <p>
+                            The next couple statements should be familiar, the first is saying that we are taking
+                            <code>in</code>
+                            the <code>vec3 color</code> that we passed from our vertex shader, the second states that we
+                            are passing
+                            <code>out</code> a <code>vec4 fragColor</code> to the color buffer, or in other words the
+                            color of the fragment
+                            i.e. pixel.
+                        </p>
+                        <p>
+                            Next in our main function we are assigning <code>fragColor</code> to <code>color</code> and
+                            our fragment shader is complete.
+                        </p>
+                        <h3>Compiling the Shader Program</h3>
+                        <p>
+                            Now that our shaders are written we need to compile our shaders and link them to our shader
+                            program.
+                        </p>
+                        <pre><code class="js" v-html="highLightCode(webGLCompileShader)"></code></pre>
+                        <p>
+                            Holy smokes Batman! That is a lot of code. Yes, yes it is. Luckily though it's a lot of the
+                            same code.
+                            <code>vertexShaderSrc</code> and <code>fragmentShaderSrc</code> are just the shaders that we
+                            wrote above
+                            as JavaScript strings so I won't expound on those again, but I will explain
+                            <code>createProgram</code>
+                            and <code>createShader</code> by saying they do just that, create shader programs and
+                            shaders. <code>createShader</code>
+                            takes the type of shader as an arguments.
+                        </p>
+                        <p>
+                            Next we need to specify our shader source code by calling <code>shaderSource</code>, then we
+                            can compile our shaders by calling <code>compileShader</code>.
+                        </p>
+                        <p>
+                            With our shaders compiled we attach them to our program by calling <code>attachShader</code>
+                            and like the program by calling <code>linkProgram</code>. Voila, you've successfully created
+                            a
+                            shader program, provided you don't have any errors in your shader source.
+                        </p>
+                        <p>
+                            Optionally you can delete the shaders as they are already linked to you program to save a
+                            bit of
+                            video ram by calling <code>deleteShader</code>. If you're not doing anything too complex you
+                            can probably skip this step.
+                        </p>
                         <h2>// OpenGL</h2>
-                        <pre><code class="js" v-html="highLightCode(openGLVShader)"></code></pre>
-                        <pre><code class="js" v-html="highLightCode(openGLFShader)"></code></pre>
+                        <h3>// Vertex Shader</h3>
+                        <pre><code class="glsl" v-html="highLightCode(openGLVShader)"></code></pre>
+                        <h3>// Fragment Shader</h3>
+                        <pre><code class="glsl" v-html="highLightCode(openGLFShader)"></code></pre>
+                        <p>
+                            Other than the version directive and not having to specify precision for floats our OpenGL
+                            shaders are exactly the same. Which is awesome as far as reusing shader code goes.
+                        </p>
+                        <h3>// Compiling the Shader Program</h3>
+                        <pre><code class="cpp" v-html="highLightCode(openGLCompileShader)"></code></pre>
+                        <p>
+                            Again the process of creating a shader program is more or less exactly the same, the only
+                            difference
+                            is that this is written in C/C++.
+                        </p>
                     </section>
                     <section>
-                        <h1>// Using VBOs and VAOs</h1>
+                        <h1>// Creating and Using VAOs and VBOs</h1>
                         <h2>// WebGL</h2>
                         <pre><code class="js" v-html="highLightCode(vaoSetupJS)"></code></pre>
                         <h2>// OpenGL</h2>

@@ -1,8 +1,17 @@
 {
     "cSpell.words": [
+        "fileupload",
+        "gladsetup",
         "GLFW",
+        "glfwsetup",
+        "GLRGB",
         "glsl",
+        "highp",
         "Khronos",
+        "loadglfunc",
+        "lowp",
+        "manaco",
+        "mediump",
         "OPENGL",
         "Vulkan"
     ]

@@ -1,10 +1,13 @@
+* {
+    margin: 0;
+}
+
 body {
     background-color: #101010;
     color: #569cd6;
     font-family: Consolas, manaco, monospace;
     margin: 0;
 }
-
 
 header {
     background-color: #1c1c1c;
@@ -39,6 +42,7 @@ code {
 
 pre {
     box-shadow: 1px 1px 5px black;
+    margin: 1em;
 }
 
 .main-flex-container {

@@ -15,6 +15,8 @@ let app = Vue.createApp({
             globalOpenGLState: null,
             triangleVertices: null,
             vaoSetupJS: null,
+            webGLCompileShader: null,
+            openGLCompileShader: null,
         }
     },
 
@@ -24,11 +26,11 @@ let app = Vue.createApp({
 
     methods: {
         async runWebGL() {
-            const canvas = document.getElementById("glCanvas");
+            const canvas = document.querySelector("#glCanvas");
             const gl = canvas.getContext("webgl2");
-            const topVertexColor = document.getElementById("top-vertex");
-            const bottomLeftVertexColor = document.getElementById("bottom-left-vertex");
-            const bottomRightVertexColor = document.getElementById("bottom-right-vertex");
+            const topVertexColor = document.querySelector("#top-vertex");
+            const bottomLeftVertexColor = document.querySelector("#bottom-left-vertex");
+            const bottomRightVertexColor = document.querySelector("#bottom-right-vertex");
             
             this.resizeCanvas(canvas);
             gl.viewport(0,0, canvas.width, canvas.height);
@@ -37,7 +39,6 @@ let app = Vue.createApp({
                 gl.viewport(0, 0, canvas.width, canvas.height);
             }
 
-            
             gl.clearColor(0.0, 0.0, 0.0, 1.0);
             gl.enable(gl.DEPTH_TEST);
 
@@ -71,28 +72,28 @@ let app = Vue.createApp({
             gl.enableVertexAttribArray(1);
 
             // If the color pickers change update the vbo data
-            topVertexColor.oninput = () => {
+            topVertexColor.addEventListener('input', () => {
                 let newColor = this.hexColorToGLRGB(topVertexColor.value);
                 triangleVertices[3] = newColor[0];
                 triangleVertices[4] = newColor[1];
                 triangleVertices[5] = newColor[2];
                 gl.bufferData(gl.ARRAY_BUFFER, triangleVertices, gl.DYNAMIC_DRAW);
-            }
-            bottomLeftVertexColor.oninput = () => {
+            })
+            bottomLeftVertexColor.addEventListener('input', () => {
                 let newColor = this.hexColorToGLRGB(bottomLeftVertexColor.value);
                 triangleVertices[9] = newColor[0];
                 triangleVertices[10] = newColor[1];
                 triangleVertices[11] = newColor[2];
                 gl.bufferData(gl.ARRAY_BUFFER, triangleVertices, gl.DYNAMIC_DRAW);
-            }
-            bottomRightVertexColor.oninput = () => {
+            })
+            bottomRightVertexColor.addEventListener('input', () => {
                 let newColor = this.hexColorToGLRGB(bottomRightVertexColor.value);
                 triangleVertices[15] = newColor[0];
                 triangleVertices[16] = newColor[1];
                 triangleVertices[17] = newColor[2];
                 gl.bufferData(gl.ARRAY_BUFFER, triangleVertices, gl.DYNAMIC_DRAW);
                 console.log('change')
-            }
+            })
 
             function draw() {
                 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -155,3 +156,5 @@ fetch(`http://localhost:8000/js?id=${"globalWebGLState.js"}`).then(res => res.js
 fetch(`http://localhost:8000/cpp?id=${"globalOpenGLState.cpp"}`).then(res => res.json()).then(data => {app.globalOpenGLState = data.cpp;});
 fetch(`http://localhost:8000/js?id=${"triangleVertices.js"}`).then(res => res.json()).then(data => {app.triangleVertices = data.js;});
 fetch(`http://localhost:8000/js?id=${"vaoSetup.js"}`).then(res => res.json()).then(data => {app.vaoSetupJS = data.js;});
+fetch(`http://localhost:8000/js?id=${"shaderCompile.js"}`).then(res => res.json()).then(data => {app.webGLCompileShader = data.js;});
+fetch(`http://localhost:8000/cpp?id=${"shaderCompile.cpp"}`).then(res => res.json()).then(data => {app.openGLCompileShader = data.cpp;});
