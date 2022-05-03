@@ -63,10 +63,71 @@
     height: 27px;
 }
 
+.textured {
+    flex-direction: column;
+    justify-content: right;
+    align-items:stretch
+}
+
+.altTextured {
+    background-color: #2a1b36;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.altTextured:hover {
+    background-color: #3a1b36;
+}
+
+.altTextured #color {
+    display: none;
+}
+
+#color {
+    display: none;
+}
+
+#colorLabel {
+    color: white;
+    border-radius: 10px;
+    padding: 0.25em;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px black;
+}
+
+#autoRotate {
+    display: none;
+}
+
+#autoRotateLabel {
+    color: white;
+    border-radius: 10px;
+    padding: 0.25em;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px black;
+}
+
+#lit {
+    display: none;
+}
+
+#litLabel {
+    color: white;
+    border-radius: 10px;
+    padding: 0.25em;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px black;
+}
+
 @media (min-width: 600px)
 {
     #settings {
         grid-template-areas: "G G G G G G" "P P P R R R";
         width: 600px;
+    }
+
+    .textured {
+        flex-direction: row;
+        justify-content: space-around;
     }
 }

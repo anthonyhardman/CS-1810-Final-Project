@@ -17,15 +17,14 @@
         </header>
         <div class="main-flex-container">
             <div id="settings">
-                <div class="gSettings-flex" id="generalSettings">
+                <div class="gSettings-flex textured" id="generalSettings">
+                    <div class="label-flex altTextured">
+                        <label id="colorLabel" for="color">Select Texture </label>
+                        <input type="file" id="color" name="img" accept="image/*">
+                    </div>
                     <div class="label-flex">
                         <label id="litLabel" for="lit">Lit: </label>
                         <input type="checkbox" id="lit" name="lit" checked>
-                        <span class="checkmark"></span>
-                    </div>
-                    <div class="label-flex">
-                        <label id="colorLabel" for="color">Texture: </label>
-                        <input type="file" id="color" name="img" accept="image/*">
                     </div>
                     <div class="label-flex">
                         <label id="autoRotateLabel" for="autoRotate">Auto Rotate: </label>

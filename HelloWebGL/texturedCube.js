@@ -38,6 +38,36 @@ let app = Vue.createApp({
             const zRot = document.querySelector("#zRot");
             const autoRotate = document.querySelector("#autoRotate");
             const rotationSettings = document.querySelector("#rotations");
+
+            const colorLabel = document.querySelector("#colorLabel");
+            const autoRotateLabel = document.querySelector("#autoRotateLabel");
+            const litLabel = document.querySelector("#litLabel");
+            
+            colorLabel.style.background=color.value;
+            autoRotateLabel.style.background="#005cc8";
+            litLabel.style.background="#005cc8";
+            
+            autoRotate.addEventListener('input', () => {
+                if (autoRotate.checked)
+                {
+                    autoRotateLabel.style.background="#005cc8";
+                }
+                else
+                {
+                    autoRotateLabel.style.background="none";
+                }
+            })
+
+            litCheckbox.addEventListener('input', () => {
+                if (litCheckbox.checked)
+                {
+                    litLabel.style.background="#005cc8";
+                }
+                else
+                {
+                    litLabel.style.background="none";
+                }
+            })
             
             rotationSettings.addEventListener('input', () => {
                 autoRotate.checked = false;
