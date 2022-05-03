@@ -80,6 +80,29 @@ app.get('/js', (req,res) => {
     }
 })
 
+app.get('/html', (req,res) => {
+    console.log(req.url);
+    console.log(req.query.id);
+
+    try
+    {
+        let htmlCode = fs.readFileSync(`./html/${req.query.id}`, 'utf8').toString();
+
+        res.send({
+            status: true,
+            error: "none",
+            html: htmlCode
+        })
+    }
+    catch
+    {
+        res.send({
+            status: false,
+            error: "HTML file does not exist"
+        })
+    }
+})
+
 app.listen(8000, () => {
     console.log("Up and running babe!")
 })

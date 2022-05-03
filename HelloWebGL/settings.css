@@ -1,0 +1,72 @@
+.label-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gSettings-flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gSettings-flex  [type="number"] {
+    width: 4em;
+}
+
+#settings {
+    display: grid;
+    grid-template-areas: "G G G G G G" "P P P P P P" "R R R R R R";
+    width: 100%;
+    background-color: #191919;
+    margin: 1em 0 1em 0;
+    text-align: center;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 10px;
+    padding: 1em 0 1em 0;
+}
+
+#settings h1 {
+    font-size: 1.25em;
+    text-decoration: underline;
+}
+
+
+#settings #generalSettings {
+    grid-area: G;
+}
+
+#settings #litLabel {
+    grid-area: L;
+}
+
+#settings #colorLabel {
+    grid-area: C;
+}
+
+#settings #autoRotateLabel {
+    grid-area: A;
+}
+
+#settings #positionSettings {
+    grid-area: P;
+    text-align: center;
+}
+
+#settings #rotationSettings {
+    grid-area: R;
+    text-align: center;
+}
+
+[type="checkbox"] {
+    width: 27px;
+    height: 27px;
+}
+
+@media (min-width: 600px)
+{
+    #settings {
+        grid-template-areas: "G G G G G G" "P P P R R R";
+        width: 600px;
+    }
+}

@@ -82,17 +82,23 @@ section {
     justify-content: space-between;
 }
 
-.flex-bar-test {
-    display: flex;
+canvas {
+    box-shadow: 1px 1px 5px black;
 }
 
-aside {
-    width: 10%;
-    background-color: blue;
+.page-links {
+    display: flex;
+    justify-content: space-around;
 }
-.bar {
-    width: 10%;
-    background-color: blue;
+
+nav {
+    background-color: #1c1c1c;
+    margin-top: 1em;
+    padding-bottom: 1em;
+}
+
+nav h1 {
+    text-align: center;
 }
 
 @media (min-width: 800px) {
@@ -107,3 +113,6 @@ aside {
         width: 1200px;
     }
 }
+
+
+

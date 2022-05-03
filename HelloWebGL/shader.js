@@ -77,4 +77,9 @@ class Shader
     {
         this.gl.uniform4fv(this.gl.getUniformLocation(this.id, name), vec);
     }
+
+    setBool(name, bool)
+    {
+        this.gl.uniform1i(this.gl.getUniformLocation(this.id, name), bool);
+    }
 }

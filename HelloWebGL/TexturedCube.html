@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textured Cube</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="settings.css">
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>/*Textured Cube*/</h1>
+        </header>
+        <div class="main-flex-container">
+            <div id="settings">
+                <div class="gSettings-flex" id="generalSettings">
+                    <div class="label-flex">
+                        <label id="litLabel" for="lit">Lit: </label>
+                        <input type="checkbox" id="lit" name="lit" checked>
+                        <span class="checkmark"></span>
+                    </div>
+                    <div class="label-flex">
+                        <label id="colorLabel" for="color">Texture: </label>
+                        <input type="file" id="color" name="img" accept="image/*">
+                    </div>
+                    <div class="label-flex">
+                        <label id="autoRotateLabel" for="autoRotate">Auto Rotate: </label>
+                        <input type="checkbox" id="autoRotate" checked>
+                    </div>
+                </div>
+                <div id=positionSettings>
+                    <h1>Position</h1>
+                    <div class="gSettings-flex">
+                        <label>X:<input id="xPos" type="number" step="0.05" min="-100" max="100" value="0"></label>
+                        <label>Y:<input id="yPos" type="number" step="0.05" min="-100" max="100" value="0"></label>
+                        <label>Z:<input id="zPos" type="number" step="0.05" min="-100" max="100" value="-5"></label>
+                    </div>
+                </div>
+                <div id=rotationSettings>
+                    <h1>Rotation</h1>
+                    <div id="rotations">
+                        <div class="gSettings-flex">
+                            <label>X:<input id="xRot" type="number" step="1" min="-360" max="360" value="0"></label>
+                            <label>Y:<input id="yRot" type="number" step="1" min="-360" max="360" value="0"></label>
+                            <label>Z:<input id="zRot" type="number" step="1" min="-360" max="360" value="0"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <main>
+                <canvas id="glCanvas"></canvas>
+            </main>
+        </div>
+        <div id="nav" v-html="nav"></div>
+    </div>
+    <script src="./toji-gl-matrix-abb59a1/dist/gl-matrix.js"></script>
+    <script src="./shader.js"></script>
+    <script src="./texturedCube.js"></script>
+</body>
+</html>

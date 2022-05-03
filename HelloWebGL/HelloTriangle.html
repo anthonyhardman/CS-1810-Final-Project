@@ -348,17 +348,104 @@
                     </section>
                     <section>
                         <h1>// Creating and Using VAOs and VBOs</h1>
+                        <p>
+                            You can think of a VAO or Vertex Array Object as a struct that contains pointers to memory
+                            allocated
+                            on the GPU. This memory corresponds to an array of vertex attributes like position and
+                            color.
+                            Memory on the GPU is managed through VBOs or Vertex Array Objects. With VBOs we can specify
+                            which data
+                            we would like to copy to the GPU to access later with our VAOs.
+                        </p>
+                        <img src="./images/triangleMemory.png" alt="Triangle VBO Memory Layout">
                         <h2>// WebGL</h2>
                         <pre><code class="js" v-html="highLightCode(vaoSetupJS)"></code></pre>
+                        <p>
+                            First things first we need to put our triangle vertices in an array. The attributes of our
+                            vertices will be
+                            position and color. To match the VBO memory layout above we define our vertices one at a
+                            time, position first, and then color, until all three vertices necessary to create a
+                            triangle are defined.
+                        </p>
+                        <p>
+                            With our vertices defined we can now create our VAO and VBO by calling
+                            <code>createVertexArray</code> and
+                            <code>createBuffer</code> respectively. Although in order to use them we must bind them as
+                            our active VAO and VBO.
+                            In order to bind the VAO we call <code>bindVertexArray</code> passing in our VAO. In order
+                            to bind the VBO we call
+                            <code>bindBuffer</code> passing in the buffer type, in our case an
+                            <code>ARRAY_BUFFER</code>, and our vbo. It is important
+                            to know that only one VAO and VBO can be active at one time.
+                        </p>
+                        <p>
+                            Now that our VBO and VAO are bound we can copy our vertices to the GPU by calling
+                            <code>bufferData</code>. <code>bufferData</code>
+                            takes in the type of buffer we are using, our vertices, and our usage. Our usage is
+                            <code>STATIC_DRAW</code> because we do not intend
+                            to change the contents of this buffer at all, knowing this WebGL can make some optimizations
+                            in how it stores our buffer on the GPU. If
+                            we knew that our buffer would be changing frequently our usage should be
+                            <code>DYNAMIC_DRAW</code>.
+                        </p>
+                        <p>
+                            Next we need to look back at our shaders and see that we are expecting our position
+                            attribute at location 0, and our color at position 1.
+                            As such our VAO's location 0 and 1 attributes must point to the correct data in our VBO.
+                            This is accomplished through <code>vertexAttribPointer</code>.
+                            <code>vertexAttribPointer</code> first takes in the vertex attribute location we are trying
+                            to define, second how many values are in the vertex attribute, third the data type of the
+                            values of our attribute, fourth whether our data should be normalized, fifth the byte stride
+                            of a single vertex,
+                            and finally the byte offset of our desired attribute withing a vertex. In our case both our
+                            position and color attributes contain three floating type values, as we can see in the
+                            Triangle VBO
+                            Memory Layout figure above our vertex stride is 24 bytes, our position attribute is offset
+                            by 0 bytes,
+                            and our color attribute is offset by 12 bytes.
+                        </p>
+                        <p>
+                            In order to use our vertex attribute pointers we must activate them by calling
+                            <code>enableVertexAttribArray</code>.
+                        </p>
                         <h2>// OpenGL</h2>
                         <pre><code class="cpp" v-html="highLightCode(vaoSetupCPP)"></code></pre>
+                        <p>
+                            Fortunately the OpenGL code does not differ in any significant way.
+                        </p>
                     </section>
                     <section>
                         <h1>// Draw Loop</h1>
+                        The moment we've all been waiting for, actually drawing our triangle.
                         <h2>// WebGL</h2>
                         <pre><code class="js" v-html="highLightCode(mainDrawLoopJS)"></code></pre>
+                        <p>
+                            Well it's not much but it gets the job done. First things first we clear the color buffer
+                            and depth buffer by calling <code>clear</code> on the <code>COLOR_BUFFER_BIT</code> and
+                            <code>DEPTH_BUFFER_BIT</code> flags.
+                            To be honest with a static triangle clearing the depth and color buffers is not strictly
+                            speaking necessary, but it's still considered good practice.
+                        </p>
+                        <p>
+                            Next we tell the program what shader program we are going to be using to draw our triangle
+                            by calling
+                            <code>useProgram</code> and passing in our shader program. After that we can finally draw
+                            our triangle
+                            by calling <code>drawArrays</code> specifying the primitive composition of the object we are
+                            drawing,
+                            the first index of the vertex array, and how many vertices we would like to draw in that
+                            vertex array.
+                        </p>
+                        <p>
+                            To run <code>draw</code> as a loop we must recursively call <code>draw</code> by means of
+                            <code>requestAnimationFrame</code>.
+                        </p>
                         <h2>// OpenGL</h2>
                         <pre><code class="cpp" v-html="highLightCode(mainDrawLoopCPP)"></code></pre>
+                        <p>
+                            As we can see the process in OpenGL is very much the same. We are using a general while loop
+                            instead of recursion, but the result is the same
+                        </p>
                     </section>
                     <section>
                         <h1>// Full Program</h1>
@@ -387,8 +474,8 @@
                     <canvas id="glCanvas"></canvas>
                 </div>
             </div>
-
         </main>
+        <div id="nav" v-html="nav"></div>
     </div>
     <script src="./toji-gl-matrix-abb59a1/dist/gl-matrix.js"></script>
     <script src="./shader.js"></script>
