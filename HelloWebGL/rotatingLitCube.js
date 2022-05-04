@@ -74,6 +74,7 @@ let app = Vue.createApp({
 
             rotationSettings.addEventListener('input', () => {
                 autoRotate.checked = false;
+                autoRotateLabel.style.background="none";
             })
             
 
@@ -163,7 +164,6 @@ let app = Vue.createApp({
                 mat4.translate(model, model, [xPos.value, yPos.value, zPos.value]);
                 mat4.scale(model, model, [1.0, 1.0, 1.0]);
 
-                console.log(autoRotate.checked);
                 if (autoRotate.checked)
                 {
                     xRot.value = (new Date().getTime() *  0.01 % 360).toFixed(1);
@@ -171,10 +171,9 @@ let app = Vue.createApp({
                     zRot.value = (new Date().getTime() * -0.05 % 360).toFixed(1);
                 }
 
-
+                mat4.rotateZ(model, model, this.toRadians(zRot.value));
                 mat4.rotateX(model, model, this.toRadians(xRot.value));
                 mat4.rotateY(model, model, this.toRadians(yRot.value));
-                mat4.rotateZ(model, model, this.toRadians(zRot.value));
 
 
                 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);

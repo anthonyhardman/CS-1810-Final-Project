@@ -63,11 +63,6 @@
     height: 27px;
 }
 
-.textured {
-    flex-direction: column;
-    justify-content: right;
-    align-items:stretch
-}
 
 .altTextured {
     background-color: #2a1b36;

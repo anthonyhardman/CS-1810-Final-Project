@@ -71,6 +71,7 @@ let app = Vue.createApp({
             
             rotationSettings.addEventListener('input', () => {
                 autoRotate.checked = false;
+                autoRotateLabel.style.background="none";
             })
 
             window.onresize = () => {
@@ -195,9 +196,9 @@ let app = Vue.createApp({
                     zRot.value = (new Date().getTime() * -0.05 % 360).toFixed(1);
                 }
 
+                mat4.rotateZ(model, model, this.toRadians(zRot.value));
                 mat4.rotateX(model, model, this.toRadians(xRot.value));
                 mat4.rotateY(model, model, this.toRadians(yRot.value));
-                mat4.rotateZ(model, model, this.toRadians(zRot.value));
 
                 shader.use();
                 shader.setMat4("projection", projection);
